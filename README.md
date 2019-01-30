@@ -1,8 +1,8 @@
 ---
 title: "Reproducible Research Course Project 1"
 output:
-  word_document: default
   html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -35,6 +35,8 @@ steps_day <- aggregate(steps ~ date, rm.na = TRUE, data = activity, FUN = sum)
 
 ```{r}
 hist(steps_day$steps, main =  "Total Number of Steps per Day", xlab = "Range of Steps per Day", ylim = c(0, 25), breaks = 10)
+dev.copy(png,'plot1.png', width = 640, height = 480)
+dev.off()
 ```
 
 ### 2.3 Calculate and report the mean and median of the total number of steps taken per day
@@ -51,6 +53,8 @@ summary(steps_day$steps)
 
 ```{r}
 plot(aggregate(steps ~ interval, data = activity, FUN = mean), type = "l", xlab = "5-minute Intervals", ylab = "Average Number of Steps", main = "Average Steps within Intervals")
+dev.copy(png,'plot2.png', width = 640, height = 480)
+dev.off()
 ```
 
 ### 3.2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -89,6 +93,8 @@ steps_day_impute <- aggregate(steps ~ date, rm.na = TRUE, data = activity_impute
 par(mfrow = c(1, 2))
 hist(steps_day$steps, main =  "Total Number of Steps per Day", cex.main = 0.9, xlab = "Range of Steps per Day", ylim = c(0, 25), breaks = 10)
 hist(steps_day_impute$steps, main =  "Total Number of Steps per Day without NAs", cex.main = 0.9, xlab = "Range of Steps per Day",  ylim = c(0, 25), breaks = 10)
+dev.copy(png,'plot3.png', width = 640, height = 480)
+dev.off()
 ```
 
 Calculate the new mean:
@@ -121,4 +127,6 @@ activity_impute$day  <- as.factor(activity_impute$day)
 par(mfrow = c(2, 1))
 with(activity_impute[activity_impute$day == "weekend",], plot(aggregate(steps ~ interval, FUN = mean), type = "l", main = "Weekends"))
 with(activity_impute[activity_impute$day == "weekday",], plot(aggregate(steps ~ interval, FUN = mean), type = "l", main = "Weekdays"))
+dev.copy(png,'plot4.png', width = 640, height = 480)
+dev.off()
 ```
